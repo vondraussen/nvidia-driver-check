@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Installed Version
+# modinfo nvidia | grep 'version:'
+INSTALLED=`modinfo nvidia | grep '^version' | sed -r 's/version:.*([0-9]{3}\.[0-9]{2})/\1/'`
+
+# Latest Long Lived Branch Version
+AVAILABLE=`curl -s https://www.nvidia.com/en-us/drivers/unix/ | grep -A 2 'Linux x86_64/AMD64/EM64T' | grep 'Latest Long Lived Branch Version' | sed -E 's/Latest Long Lived Branch Version.*>([0-9]{3}\.[0-9]{2}).*/\1/' | tr -d [:blank:]`
+echo "installed: $INSTALLED"
+echo "available: $AVAILABLE"
